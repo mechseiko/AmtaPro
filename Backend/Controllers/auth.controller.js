@@ -12,7 +12,7 @@ export const registerController = async (req, res, next) => {
     if (!emailAddress || !password) {
       return res.status(400).json({
         success: false,
-        message:  
+        message:
           "incomplete request: name, emailAddress or password not provided",
       });
     }
@@ -105,3 +105,17 @@ export const loginController = async (req, res, next) => {
     next(err);
   }
 };
+
+
+export async function logoutController(req, res, next) {
+  try {
+    req.session.destroy((err) => {
+      if(err) return next(err)
+        
+    })
+
+    
+  } catch (err) {
+    next(err)
+  }
+}

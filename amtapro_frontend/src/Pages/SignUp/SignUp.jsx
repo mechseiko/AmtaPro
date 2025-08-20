@@ -2,20 +2,44 @@ import React, { useState } from 'react';
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer';
 import { Link } from 'react-router-dom';
-import {login} from '../../assets/links'
+import { login } from '../../assets/links'
 
 const SignUp = () => {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: '', username: '', emailAddress: '', password: '' });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSignup = (e) => {
+  const BASE_URL = "https://amtapro.onrender.com"
+
+  const handleSignup = async (e) => {
     e.preventDefault();
-    // SignUp Logic
-    console.log('Signing up with:', form);
+
+    try {
+      const response = await fetch(`${BASE_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+1
+      const data = await response.json();
+4
+      if (response.ok) {
+        console.log('Signup successful:', data);
+        // You can redirect or show a success message here
+      } else {
+        console.error('Signup failed:', data);
+        // Handle error (e.g., show error message to user)
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      // Handle network error
+    }
   };
+
 
   return (
     <div className="flex flex-col min-h-screen bg-green-50 text-green-900">
@@ -35,10 +59,18 @@ const SignUp = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={form.username}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+            <input
               type="email"
               name="email"
               placeholder="Email"
-              value={form.email}
+              value={form.emailAddress}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
             />
