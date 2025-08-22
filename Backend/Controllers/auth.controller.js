@@ -106,16 +106,20 @@ export const loginController = async (req, res, next) => {
   }
 };
 
-
 export async function logoutController(req, res, next) {
   try {
     req.session.destroy((err) => {
-      if(err) return next(err)
-        
-    })
-
-    
+      if (err) {
+        return next(err);
+      } else {
+        res.clearCookie();
+        return res.status(201).json({
+          success: true,
+          message: "user logged out successfully",
+        });
+      }
+    });
   } catch (err) {
-    next(err)
+    next(err);
   }
 }

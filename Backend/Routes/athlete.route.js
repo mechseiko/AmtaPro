@@ -18,6 +18,11 @@ const router = Router();
 
 router.get("/", getAthletes);
 
+/**
+ * @route POST /athletes/:id
+ * @description get a single athlete
+ * @returns {object} athlete
+ */
 router.get("/:id", getSingleAthlete);
 
 /**
@@ -27,7 +32,6 @@ router.get("/:id", getSingleAthlete);
  * @param {Number}  (height, weight)
  * @param {Date}  dob
  * @param {String[]} positions
- * @tutorial should_use_authMiddleware,
  */
 
 router.post("/", upload.single("profilePic"), createNewAthlete);

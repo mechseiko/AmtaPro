@@ -1,6 +1,7 @@
 # Athlete API Documentation
 
 ## Authentication
+
 - Most routes require authentication via session, API key, or JWT cookie.
 
 ---
@@ -10,6 +11,7 @@
 **Description:** Retrieve a list of athletes with optional filters.
 
 **Query Parameters:**
+
 - `positions` (array or string): Filter by position(s).
 - `nationality` (string): Filter by nationality.
 - `min_age`, `max_age` (number): Filter by age range.
@@ -17,6 +19,7 @@
 - `min_weight`, `max_weight` (number): Filter by weight range (kg).
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -33,9 +36,11 @@
 **Description:** Retrieve a single athlete by ID.
 
 **Path Parameters:**
+
 - `id` (string): Athlete ID or User ID.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -54,6 +59,7 @@
 **Description:** Create a new athlete profile.
 
 **Body Parameters:**
+
 - `bio` (string): Athlete biography.
 - `dob` (string, date): Date of birth (YYYY-MM-DD).
 - `height` (number): Height in cm.
@@ -62,11 +68,13 @@
 - `nationality` (string): Nationality (default: "nigerian").
 
 **File**
-- `profilePic` (image/*): profile image
+
+- `profilePic` (image/\*): profile image
 
 **Note: make sure to use `enctype:"multipart/formdata"`**
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -78,20 +86,24 @@
 ```
 
 **Errors:**
+
 - 403: User not logged in.
 - 400: Athlete profile already exists.
 
 ---
 
-## PUT /athlete/:id  
+## PUT /athlete/:id
+
 ## PUT /athlete/
 
 **Description:** Edit an existing athlete profile.
 
 **Path Parameters:**
+
 - `id` (string, optional): Athlete ID.
 
 **Body Parameters:**
+
 - `bio` (string, optional)
 - `dob` (string, date, optional)
 - `height` (number, optional)
@@ -100,6 +112,7 @@
 - `nationality` (string, optional)
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -112,8 +125,29 @@
 ```
 
 **Errors:**
+
 - 403: User not logged in.
 - 404: Athlete profile does not exist.
+
+---
+
+
+## GET /news
+
+**Description:** Get latest news headlines on all sports
+
+**Response:**
+
+```json
+{
+  "successs": true,
+  "message": "news retrieved successfully",
+  "data": {...news object...}
+}
+```
+
+**Errors:**
+- 400: Bad request.
 
 ---
 
