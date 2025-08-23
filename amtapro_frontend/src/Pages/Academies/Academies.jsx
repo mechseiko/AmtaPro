@@ -6,7 +6,7 @@ import Title from '../../Components/Title'
 
 const Academies = () => {
   return (
-    <div className="bg-background p-2">
+    <div className="bg-background p-2 mt-5">
       <Title title={`Explore over ${dataA.length}0+ Academies and Scouts`}/>
       <section className="max-w-6xl mx-auto px-5 mb-5">
 
@@ -14,7 +14,7 @@ const Academies = () => {
           {dataA.map((academy) => (
             <article
               key={academy.id}
-              className="bg-white shadow-md rounded-xl p-10 hover:shadow-lg transition duration-300 border border-green-100"
+              className="bg-white border border-green-700 rounded-3xl shadow-lg p-6 flex flex-col items-center text-center"
             >
               <div className="mb-5">
                 <h2 className="text-2xl font-bold text-green-800">

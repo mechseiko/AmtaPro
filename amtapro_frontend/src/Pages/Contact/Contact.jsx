@@ -4,6 +4,7 @@ import Footer from '../../Components/Footer';
 import Alert from './Alert';
 import {email} from '../../assets/links'
 import Title from '../../Components/Title';
+import * as lucid from 'lucide-react';
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -11,9 +12,11 @@ const Contact = () => {
     email: '',
     message: '',
   });
+  
+  const red = 'red-900'
 
   const [alertVisible, setAlertVisible] = useState(false);
-  const [alertData, setAlertData] = useState({ header: '', message: '' });
+  const [alertData, setAlertData] = useState({ header: '', message: '', border: '' });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,8 +26,8 @@ const Contact = () => {
     setAlertVisible(false);
   };
 
-  const showAlert = (header, message) => {
-    setAlertData({ header, message });
+  const showAlert = (header, message, border) => {
+    setAlertData({ header, message, border });
     setAlertVisible(true);
   };
 
@@ -32,7 +35,7 @@ const Contact = () => {
     e.preventDefault();
 
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      showAlert('Missing Fields', 'Please fill in all fields before sending.');
+      showAlert('Missing Fields', 'Please fill in all fields before sending.', red);
       return;
     }
 
@@ -57,14 +60,15 @@ const Contact = () => {
         setForm({ name: '', email: '', message: '' });
         showAlert(
           'Success',
-          'Message sent successfully. Our team will get back to you shortly.'
+          'Message sent successfully. Our team will get back to you shortly.',
+          'border'
         );
       } else {
-        showAlert('Failed', 'Failed to send message. Please try again.');
+        showAlert('Failed', 'Failed to send message. Please try again.', red);
       }
     } catch (error) {
-      console.error('Error sending message:', error);
-      showAlert('Error', 'An error occurred. Please try again later.');
+      console.error('Error sending message:', error, red);
+      showAlert('Error', 'An error occurred. Please try again later.', red);
     }
   };
 
@@ -73,25 +77,23 @@ const Contact = () => {
       <Alert
         header={alertData.header}
         message={alertData.message}
+        border={alertData.border}
         show={alertVisible}
         closeAlertBox={closeAlertBox}
       />
       <Header />
       <main className="flex-grow container mx-auto px-4 py-10">
         <div className="bg-white shadow-md rounded-xl p-8 max-w-2xl mx-auto border border-green-700">
-          {/* <h1 className="text-3xl font-bold text-center mb-4 text-green-700">
-            Contact Us
-          </h1> */}
-          <Title title="Contact Us" />
+          <div className='flex justify-center'>
+            <Title title="Contact Us" />
+            <span><lucid.Contact size={30}/></span>
+          </div>
+          
           <p className="text-center text-sm text-gray-600 mb-6">
             Fill out the form below and we’ll respond as soon as possible. You can also {' '}
             <a href={email} className="text-blue-500 underline">
               email us directly.
             </a>{' '}
-            {/* or {' '}
-            <a href="#" className="text-blue-500 underline">
-              schedule a meeting
-            </a>. */}
           </p>
 
           <form className="space-y-4" onSubmit={sendMessage}>
@@ -122,15 +124,16 @@ const Contact = () => {
             />
             <button
               type="submit"
-              className="outline-none w-full py-3 bg-green-700 text-white rounded-full hover:bg-green-800 transition duration-300"
+              className="flex justify-center outline-none w-full py-3 bg-green-700 text-white rounded-full hover:bg-green-800 transition duration-300"
             >
-              Send Message
+              <span>Send Message</span>{' '}
+              <lucid.Send size={20}/>
             </button>
           </form>
         </div>
-        <div className="text-center mt-10 text-sm text-gray-600">
+        <p className="text-center mt-10 text-sm text-gray-600">
           We appreciate your interest in AmtaPro. Let’s build football’s future together.
-        </div>
+        </p>
       </main>
       <Footer />
     </div>

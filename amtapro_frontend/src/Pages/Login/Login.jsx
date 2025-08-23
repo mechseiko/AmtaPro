@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
-import Header from '../../Components/Header'
+import axios from 'axios';
+import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
 import { Link } from 'react-router-dom';
 import { forgotPassword, register } from '../../assets/links';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Login Logic
-    console.log('Logging in with:', form);
-  };
+  const BASE_URL = "https://amtapro.onrender.com";
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${BASE_URL}/auth/login`, form);
+      console.log('Login successful:', response.data);
+    } catch (error) {
+      console.error('Login failed:', error.response?.data || error.message);
+    }
+  };
+  
   return (
     <div className="flex flex-col min-h-screen bg-green-50 text-green-900">
       <Header />
@@ -34,14 +43,22 @@ const Login = () => {
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
             />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 pr-10"
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-2.5 cursor-pointer text-green-700"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </span>
+            </div>
             <button
               type="submit"
               className="w-full py-3 bg-green-700 text-white rounded-full hover:bg-green-800 transition duration-300"

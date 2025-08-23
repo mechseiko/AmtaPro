@@ -72,7 +72,7 @@ const Navbar = () => {
                   <li key={link.name}>
                     <Link
                       to={link.to}
-                      className="m-2.5 p-1 hover:text-primary hover:underline"
+                      className="m-2.5 p-1 hover:text-muted hover:overline hover:animation-ping"
                     >
                       {link.name}
                     </Link>

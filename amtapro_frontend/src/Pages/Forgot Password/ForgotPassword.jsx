@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
 import { Link } from 'react-router-dom';
-import {login} from '../../assets/links'
+import { login } from '../../assets/links';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Forgot password logic
-    console.log('Password reset requested for:', email);
-  };
+  const BASE_URL = "https://amtapro.onrender.com";
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${BASE_URL}/auth/forgot-password`, { email });
+      console.log('Reset link sent:', response.data);
+    } catch (error) {
+      console.error('Reset failed:', error.response?.data || error.message);
+    }
+  };
+  
   return (
     <div className="flex flex-col min-h-screen bg-green-50 text-green-900">
       <Header />

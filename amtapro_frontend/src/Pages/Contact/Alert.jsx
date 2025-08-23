@@ -1,12 +1,13 @@
 import React from 'react';
 import {logo} from '../../assets/links';
 
-const Alert = ({ header, message, show, closeAlertBox }) => {
+const Alert = ({ header, message, show, closeAlertBox, border }) => {
   if (!show) return null;
-
+  console.log(border)
+  console.log(typeof(border))
   return (
     <div className="fixed inset-0 flex justify-center items-center z-1000 font-inter">
-      <div className="bg-background p-6 rounded-[30px] shadow-lg text-center max-w-[400px] w-[90%] border-[3px] border-border">
+      <div className={`bg-background p-6 rounded-[30px] shadow-lg text-center max-w-[400px] w-[90%] border-[3px] border-${border}`}>
         <img
           src={logo}
           alt="Amtapro-Logo"

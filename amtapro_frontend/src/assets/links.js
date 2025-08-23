@@ -8,6 +8,16 @@ import bime from '../assets/bime.jpg'
 
 import saad from '../assets/saad.png'
 
+import exposure from '../assets/global-exposure.jpg'
+
+import connections from '../assets/real-connections.jpg'
+
+import growth from '../assets/career-growth.jpg'
+
+const amtaproImages = [
+  exposure, connections, growth
+]
+
 
 const dataA = [
   { id: "1", name: "Saad FC", location: "Nigeria", email: "example@gmail.com", socialLink: "saad-fc.io" },
@@ -29,9 +39,9 @@ const headerLinks = [
     { name: "Field", to: "/" },
     { name: "News", to: "/news" },
     { name: "About", to: "/about" },
-    { name: "Team", to: "/team" },
     { name: "Support", to: "/support" },
     { name: "Contact", to: "/contact" },
+    { name: "Team", to: "/team" },
 ];
 
 const email = "amtapro@gmail.com"
@@ -59,8 +69,8 @@ const quickLinks = [
 ];
 
 const socialLinks = [
-    { name: "Whatsapp", to: "https://chat.whatsapp.com/JOzPp9sQ9XCAMkk9METGws?mode=ac_t" },
-    { name: "X", to: "https://x.com/mechseiko" },
+    { name: "WhatsApp", to: "https://chat.whatsapp.com/JOzPp9sQ9XCAMkk9METGws?mode=ac_t" },
+    { name: "X", to: "https://x.com/Amtagold1" },
 ];
 
 const legalLinks = [
@@ -70,8 +80,8 @@ const legalLinks = [
 
 const testimonials = [
   {
-    name: "Samuel Adewale",
-    role: "Youth Player",
+    name: "Ismail Wareeth",
+    role: "Footballer",
     quote: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, cupiditate voluptatum. Explicabo voluptatibus accusamus eius repellat exercitationem vitae dicta sed aliquid sapiente.",
     image: "https://randomuser.me/api/portraits/men/32.jpg"
   },
@@ -110,4 +120,5 @@ export {
     forgotPassword,
     team,
     testimonials,
+    amtaproImages,
 }

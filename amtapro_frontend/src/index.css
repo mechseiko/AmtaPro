@@ -52,6 +52,8 @@
 @theme {
   --color-border: var(--border);
   --color-background: var(--background);
+
+  --color-paragragh: var(--paragraph);
   --color-foreground: var(--foreground);
 
   --color-muted: var(--muted);
@@ -67,6 +69,8 @@
 
     --card: hsl(98, 89%, 75%);
     --muted: hsl(0 0% 20%);
+
+    --paragragh: gray;
 
     --primary: hsl(98, 89%, 45%); /*buttons and highlights */
     --primary-foreground: hsl(120, 46%, 80%);

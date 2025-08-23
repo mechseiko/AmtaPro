@@ -6,6 +6,8 @@ import Title from '../../Components/Title';
 import { quickLinks } from '../../assets/links';
 import Button from '../../Components/Button';
 import Focus from '../../Components/Focus';
+import * as lucid from 'lucide-react';
+
 
 const PrivacyPolicy = () => {
   return (
@@ -14,7 +16,7 @@ const PrivacyPolicy = () => {
       <main className="flex-grow container mx-auto px-4 py-10">
         <div className="bg-white shadow-md rounded-xl p-8 max-w-4xl mx-auto border border-green-700">
           {/* <h1 className="text-3xl font-bold text-center mb-6 text-green-700">Privacy Policy</h1> */}
-          <Title title="Privay Policy" />
+          <Title title="Privacy Policy" />
           <Focus />
 
           <section className="mb-8">
@@ -81,7 +83,11 @@ const PrivacyPolicy = () => {
             <Button text={"Contact us"} link={quickLinks.find(link => link.name === "Contact").to}/>
           </section>
         </div>
+        <p className="text-center mt-10 text-sm text-gray-600">
+            By creating an account with us, you acknowledge that you have read, understood and agree to this privacy policy.
+        </p>
       </main>
+        
       <Footer />
     </div>
   );

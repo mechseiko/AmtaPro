@@ -6,6 +6,7 @@ import { quickLinks } from '../../assets/links';
 import Title from '../../Components/Title';
 import Button from '../../Components/Button'
 import Focus from '../../Components/Focus'
+import * as lucid from 'lucide-react'
 
 const About = () => {
   return (

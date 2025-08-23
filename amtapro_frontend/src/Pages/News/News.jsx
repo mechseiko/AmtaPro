@@ -3,7 +3,8 @@ import Loader from "../../Components/Loader";
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
 import Footballers from "../Footballers/Footballers";
-import { Newspaper } from "lucide-react";
+import * as lucid from 'lucide-react';
+import Title from "../../Components/Title";
 
 const News = () => {
   const [news, setNews] = useState([]);
@@ -24,7 +25,7 @@ const News = () => {
     fetch("https://newsdata.io/api/1/latest?apikey=pub_7e534d5ceb714fa68c72afa60bb28b77&q=football&language=en")
       .then((res) => res.json())
       .then((data) => {
-        setNews([...new Set(data.results || [])]);
+        data.results.length > 5 ? setNews([...new Set(data.results || [])]) : setNews(data.results || [])
         setLoading(false);
       })
       .catch((err) => {
@@ -51,8 +52,8 @@ const News = () => {
       <Header />
       <div className="max-w-4xl mx-auto px-4 py-8">
         <h2 className="text-3xl font-bold text-green-700 mb-6 flex items-center gap-2">
-          <Newspaper size={28} />
-          Latest Football News
+          <lucid.Newspaper size={28} />
+          <Title title={"AmtaPro Blog"} />
         </h2>
 
         <div className="grid gap-6 sm:grid-cols-1">
@@ -74,10 +75,13 @@ const News = () => {
                     {article.title}
                   </h3>
                   <p className="text-sm text-gray-700">
-                    {article.description.split(" ").slice(0, 50).join(" ")}...
+                    {article.description.split(" ").slice(0, 100).join(" ")}...
                   </p>
                   <span className="text-xs text-gray-500 italic">
-                    {article.pubDate}
+                    <strong>Today:</strong> {article.pubDate.split(" ")[0]}
+                  </span>
+                  <span className="text-xs text-gray-500 italic">
+                    <strong>Time:</strong> {article.pubDate.split(" ")[0]}
                   </span>
                 </div>
               </div>
