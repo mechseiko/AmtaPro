@@ -78,10 +78,10 @@ const News = () => {
                     {article.description.split(" ").slice(0, 100).join(" ")}...
                   </p>
                   <span className="text-xs text-gray-500 italic">
-                    <strong>Today:</strong> {article.pubDate.split(" ")[0]}
-                  </span>
+                    <strong>Date:</strong> {article.pubDate.split(" ")[0]}
+                  </span> <br />
                   <span className="text-xs text-gray-500 italic">
-                    <strong>Time:</strong> {article.pubDate.split(" ")[0]}
+                    <strong>Time:</strong> {article.pubDate.split(" ")[1]}
                   </span>
                 </div>
               </div>
