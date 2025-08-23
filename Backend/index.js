@@ -20,8 +20,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://amtapro.vercel.app",
-    credentials: true,
+    // origin: "https://amtapro.vercel.app",
+    // credentials: true,
   })
 );
 
