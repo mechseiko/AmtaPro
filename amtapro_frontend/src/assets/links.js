@@ -86,8 +86,8 @@ const testimonials = [
     image: "https://randomuser.me/api/portraits/men/32.jpg"
   },
   {
-    name: "Coach Fatima Bello",
-    role: "Technical Coach",
+    name: "Mubaraq Ayomide",
+    role: "Data Analyst",
     quote: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, cupiditate voluptatum. Explicabo voluptatibus accusamus eius repellat exercitationem vitae dicta sed aliquid sapiente.",
     image: "https://randomuser.me/api/portraits/women/44.jpg"
   },

@@ -74,6 +74,7 @@ const Footer = () => {
         <div className="mt-2 space-x-4">
           <Link to={legalLinks.find(link => link.to === "/terms-of-service").to} className="underline">Terms of Service</Link>
           <Link to={legalLinks.find(link => link.to === "/privacy-policy").to} className="underline">Privacy Policy</Link>
+          <h3>Developed by <Link to={quickLinks.find(link => link.name === "Team").to} className="underline">The team</Link></h3>
         </div>
       </div>
     </div>

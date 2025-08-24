@@ -57,7 +57,7 @@ const Footballers = () => {
 
       
   
-        <form className="bg-green-100 border border-green-700 rounded-lg p-6 mb-8 shadow-md grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-300">
+        <form className="bg-green-200 border border-green-700 rounded-lg p-6 mb-8 shadow-md grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-300">
         <div className="col-span-1 md:col-span-2">
           <label htmlFor="username" className="block mb-1 font-semibold">Name</label>
           <input type="text" id="username" className="w-full p-2 border border-green-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500" onChange={username => setUsername(username.target.value)} />

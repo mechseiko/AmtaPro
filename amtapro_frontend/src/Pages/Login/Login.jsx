@@ -19,19 +19,42 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BASE_URL}/auth/login`, form);
-      console.log('Login successful:', response.data);
+      const response = await fetch(`${BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      console.log('Login successful:', data);
     } catch (error) {
-      console.error('Login failed:', error.response?.data || error.message);
+      console.error('Login failed:', error.message);
     }
-  };
+};
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post(`${BASE_URL}/auth/login`, form);
+  //     console.log('Login successful:', response.data);
+  //   } catch (error) {
+  //     console.error('Login failed:', error.response?.data || error.message);
+  //   }
+  // };
   
   return (
     <div className="flex flex-col min-h-screen bg-green-50 text-green-900">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-10">
         <div className="bg-white shadow-md rounded-xl p-8 max-w-md mx-auto border border-green-700">
-          <h1 className="text-3xl font-bold text-center mb-6 text-green-700">Login</h1>
+          <h1 className="text-4xl font-bold text-center mb-6 text-green-800">Log In</h1>
 
           <form className="space-y-4" onSubmit={handleLogin}>
             <input

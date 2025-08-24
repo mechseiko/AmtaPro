@@ -33,11 +33,7 @@ const Amta = () => {
               Create an account in minutes, share your profile with the world and get discovered.
             </p>
             <div className="flex flex-row gap-2 justify-center xl:justify-start">
-              <Link to={register}>
-                <button className="w-[200px] p-3 bg-primary hover:bg-foreground hover:text-primary text-foreground rounded-4xl transition-colors">
-                  Get Started
-                </button>
-              </Link>
+              <Button text={"Get started"} link={register} />
             </div>
           </motion.div>
 
@@ -49,7 +45,7 @@ const Amta = () => {
             viewport={{ once: true }}
             className="w-fit xl:w-5/12"
           >
-            <div className="bg-primary rounded-xl shadow-lg p-5 overflow-y-auto max-h-[460px]">
+            <div className="bg-green-900 rounded-xl shadow-lg p-5 overflow-y-auto max-h-[460px]">
               <img
                 src={amta}
                 alt="Amta"
