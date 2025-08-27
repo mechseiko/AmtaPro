@@ -25,7 +25,7 @@ const Lander = () => {
                     .then(() => {
                         let vol = 0;
                         const fade = setInterval(() => {
-                            if (vol < 1) {
+                            if (vol < 0.9) {
                                 vol += 0.1;
                                 audio.volume = vol;
                             } else {

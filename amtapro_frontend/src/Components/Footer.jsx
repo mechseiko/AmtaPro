@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '.././assets/logo.png';
 import { Link } from 'react-router-dom';
-import {quickLinks, socialLinks, legalLinks, email} from '../assets/links'
+import {quickLinks, socialLinks, legalLinks, email, mail} from '../assets/links'
 
 const Footer = () => {
   const date = new Date().getFullYear();
@@ -58,7 +58,7 @@ const Footer = () => {
             <p className="text-sm text-gray-600">
               AmtaPro is a digital showcase for football talent — a space where players, scouts, teams, and academies connect. It empowers athletes to build profiles, share highlight reels, and be discovered by the right people. Whether you're a rising star or a seasoned scout, this is where football journeys begin and evolve.
             </p>
-            <a href="mailto:amtapro@gmail.com" className="mt-3 text-blue-500 underline">{email}</a>
+            <a href="mailto:amtapro@gmail.com" className="mt-3 text-blue-500 underline">{mail}</a>
           </div>
         </div>
 

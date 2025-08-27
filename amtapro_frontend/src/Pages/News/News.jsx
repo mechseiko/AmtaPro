@@ -35,8 +35,12 @@ const News = () => {
   }, []);
 
   if (loading) {
-    return <Loader />;
-  }
+    return (
+    <div>
+      <Header />
+      <Loader />
+    </div>
+  )}
 
   let filteredNews = news.filter(
     (article) =>
@@ -50,11 +54,11 @@ const News = () => {
   return (
     <div>
       <Header />
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <h2 className="text-3xl font-bold text-green-700 mb-6 flex items-center gap-2">
-          <lucid.Newspaper size={28} />
-          <Title title={"AmtaPro Blog"} />
-        </h2>
+      <div className="max-w-4xl mx-auto p x-4 py-8">
+        <div className='flex justify-start'>
+          <span><lucid.NewspaperIcon size={30}/></span>
+          <Title title="Amtapro Blog" />
+        </div>
 
         <div className="grid gap-6 sm:grid-cols-1">
           {filteredNews.length > 0 ? (

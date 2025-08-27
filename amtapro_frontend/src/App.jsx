@@ -1,22 +1,21 @@
+// File: src/App.jsx
+
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
 import Lander from './Pages/Lander/Lander'
 import News from './Pages/News/News';
-import Footballers from './Pages/Footballers/Footballers'
-import Academies from './Pages/Academies/Academies';
 import Contact from './Pages/Contact/Contact';
 import Support from './Pages/Support/Support';
 import About from './Pages/About/About'
-import Login from './Pages/Login/Login';
-import SignUp from './Pages/SignUp/SignUp';
+import Login from './Pages/Auth/Login';
+import SignUp from './Pages/Auth/SignUp';
 import TermsOfService from './Pages/Terms Of Service/TermsOfService';
 import PrivacyPolicy from './Pages/Privacy Policy/PrivacyPolicy';
 import ForgotPassword from './Pages/Forgot Password/ForgotPassword'
 import Team from './Pages/Team/Team';
-
-
-
+import FootballerDashboard from './Pages/Dashboard/Pages/Footballer/FootballerDashboard';
+import AcademyDashboard from './Pages/Dashboard/Pages/Academy/AcademyDashboard';
 
 function App() {
   return (
@@ -25,8 +24,6 @@ function App() {
         <Route path="/" element={<Lander />}></Route>
         <Route path="/*" element={<Lander />}></Route>
         <Route path="/news" element={<News />}></Route>
-        {/* <Route path="/footballers" element={<Footballers />}></Route>
-        <Route path="/academies" element={<Academies />}></Route> */}
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/support" element={<Support />}></Route>
         <Route path="/about" element={<About />}></Route>
@@ -36,6 +33,16 @@ function App() {
         <Route path="/terms-of-service" element={<TermsOfService />}></Route>
         <Route path="/team" element={<Team />}></Route>
         <Route path="/privacy-policy" element={<PrivacyPolicy />}></Route>
+
+        {/* {
+          footballers.map((footballer, index) => (
+            <Route key={index} path={`/:${footballer.username}`} element={<FootballerDashboard />} />
+          ))
+        } */}
+
+        {/* Use a prefix to make the routes unique */}
+        <Route path="/footballer/:footballerName" element={<FootballerDashboard />} />
+        <Route path="/academy/:academyName" element={<AcademyDashboard />} />
       </Routes>
     </BrowserRouter>
   )

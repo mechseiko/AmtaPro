@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
 import { Link } from 'react-router-dom';
@@ -7,19 +6,31 @@ import { login } from '../../assets/links';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-
   const BASE_URL = "https://amtapro.onrender.com";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BASE_URL}/auth/forgot-password`, { email });
-      console.log('Reset link sent:', response.data);
+      const response = await fetch(`${BASE_URL}/auth/forgot-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong');
+      }
+
+      console.log('Reset link sent:', data);
     } catch (error) {
-      console.error('Reset failed:', error.response?.data || error.message);
+      console.error('Reset failed:', error.message);
     }
   };
-  
+
   return (
     <div className="flex flex-col min-h-screen bg-green-50 text-green-900">
       <Header />

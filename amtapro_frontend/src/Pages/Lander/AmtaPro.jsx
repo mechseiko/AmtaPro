@@ -3,39 +3,13 @@ import Title from '../../Components/Title';
 import { amtaproImages } from '../../assets/links';
 import { motion } from 'framer-motion';
 import Button from '../../Components/Button';
-import { socialLinks, register } from '../../assets/links';
+import { socialLinks, register, sections } from '../../assets/links';
 
 const AmtaPro = () => {
-  const sections = [
-    {
-      title: 'Global Exposure',
-      description:
-        'Showcase your skills to clubs, scouts, and agents across continents. AmtaPro breaks down borders so your game can go worldwide.',
-      cta: 'Explore Opportunities',
-      object: amtaproImages[0],
-      to: register
-    },
-    {
-      title: 'Real Connections',
-      description:
-        'AmtaPro connects you directly with decision-makers and fellow players. Build relationships that matter and open doors to your future.',
-      cta: 'Join Community',
-      object: amtaproImages[1],
-      to: socialLinks.find(link => link.name === "WhatsApp").to
-    },
-    {
-      title: 'Career Growth',
-      description:
-        'From training resources to mentorship, AmtaPro gives you the tools to grow your career and chase your football dreams.',
-      cta: 'Grow with Us',
-      object: amtaproImages[2],
-      to: register
-    },
-  ];
 
   return (
     <div className="">
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="mx-auto px-6 py-12">
         <Title title="What is AmtaPro?" />
         <p className="text-lg text-center text-gray-600 mb-10">
           AmtaPro is more than just a platform, it's a movement. We empower footballers and scouts to connect, grow, and succeed. Here's how we stand out:
@@ -51,7 +25,7 @@ const AmtaPro = () => {
             className="mb-10"
           >
             {/* Mobile Layout */}
-            <div className="flex flex-col-reverse xl:hidden rounded-xl shadow-2xl mb-15">
+            <div className="flex flex-col-reverse md:hidden rounded-xl shadow-2xl mb-15">
               <img
                 src={section.object}
                 alt={section.title}
@@ -67,7 +41,7 @@ const AmtaPro = () => {
 
             {/* Desktop Layout */}
             <div
-              className={`hidden xl:flex items-center gap-10 ${
+              className={`hidden md:flex items-center gap-10 ${
                 index % 2 !== 0 ? 'flex-row-reverse' : ''
               }`}
             >

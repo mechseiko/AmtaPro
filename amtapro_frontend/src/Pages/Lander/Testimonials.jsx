@@ -10,7 +10,7 @@ import Title from '../../Components/Title';
 const Testimonials = () => {
   return (
     <section className="bg-background py-16 px-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto">
         {/* <h2 className="text-3xl font-bold mb-12 text-[var(--foreground)]">What People Are Saying</h2> */}
         <Title title="What People Are Saying"/>
 
@@ -27,7 +27,7 @@ const Testimonials = () => {
         >
           {testimonials.map((testimonial, index) => (
             <SwiperSlide key={index}>
-              <div className="bg-[var(--card)] p-6 mx-4 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+              <div className="bg-green-700  text-white p-6 mx-4 rounded-lg shadow-md hover:shadow-xl transition duration-300">
                { testimonial.image ? <img
                   src={testimonial.image}
                   alt={testimonial.name}
@@ -35,9 +35,9 @@ const Testimonials = () => {
                 /> :
                     <div className='rounded-full size-16 bg-primary mx-auto mb-4 object-cover'></div>
                 }
-                <p className="italic text-[var(--muted)] mb-4">“{testimonial.quote}”</p>
-                <h4 className="font-semibold text-[var(--foreground)]">{testimonial.name}</h4>
-                <span className="text-sm text-gray-600">{testimonial.role}</span>
+                <p className="italic mb-4">“{testimonial.quote}”</p>
+                <h4 className="font-semibold">{testimonial.name}</h4>
+                <span className="text-sm">{testimonial.role}</span>
               </div>
             </SwiperSlide>
           ))}

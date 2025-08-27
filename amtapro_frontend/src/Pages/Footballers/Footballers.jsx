@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { data } from '../../assets/links';
-import Header from '../../Components/Header';
-import Footer from '../../Components/Footer';
+import { footballers, positions, locations } from '../../assets/links';
+import {Link} from 'react-router-dom';
 import { Filter } from 'lucide-react';
 import Title from '../../Components/Title'
 
@@ -11,26 +10,19 @@ const Footballers = () => {
   const [username, setUsername] = useState("");
   const [location, setLocation] = useState("");
   const [gender, setGender] = useState("");
-  const [newData, setNewData] = useState(data);
+  const [newData, setNewData] = useState(footballers);
   const [showFilters, setShowFilters] = useState(false);
 
-  let locations = [];
-  let positions = [];
-  let footballers = [];
+  let usernames = [];
 
-  data.forEach(footballer => {
-    locations.push(footballer.location);
-    locations = [...new Set(locations)];
-    positions.push(footballer.position);
-    positions = [...new Set(positions)];
-    footballers.push(footballer.username);
-    footballers = [...new Set(footballers)];
+  footballers.forEach(footballer => {
+    usernames.push(footballer.username);
   });
 
   const genderChange = (e) => {
     const genderValue = e.target.value;
     setGender(genderValue);
-    setNewData(genderValue === "" ? data : data.filter(footballer => footballer.gender === genderValue));
+    setNewData(genderValue === "" ? footballers : footballers.filter(footballer => footballer.gender === genderValue));
   };
 
   const filteredData = newData
@@ -137,13 +129,13 @@ const Footballers = () => {
                 {footballer.gender === "male" ? (
                   <img
                     src={`https://xsgames.co/randomusers/assets/avatars/male/${Math.floor(Math.random() * 60) + 1}.jpg`}
-                    alt={`${footballer.username} profile`}
+                    alt={`${footballer.fullName} profile`}
                     className="w-24 h-24 rounded-full border-4 border-green-700 object-cover"
                   />
                 ) : footballer.gender === "female" ? (
                   <img
                     src={`https://xsgames.co/randomusers/assets/avatars/female/${Math.floor(Math.random() * 60) + 1}.jpg`}
-                    alt={`${footballer.username} profile`}
+                    alt={`${footballer.fullName} profile`}
                     className="w-24 h-24 rounded-full border-4 border-green-700 object-cover"
                   />
                 ) : (
@@ -152,7 +144,7 @@ const Footballers = () => {
               </div>
 
               
-              <h2 className="text-xl font-bold text-green-800 mb-2">{footballer.username}</h2>
+              {footballer.fullName && <h2 className="text-xl font-bold text-green-800 mb-2">{footballer.fullName}</h2>}
               {footballer.position && (
                 <p className="text-sm text-gray-700 mb-1">Position: {footballer.position}</p>
               )}
@@ -162,13 +154,13 @@ const Footballers = () => {
               {footballer.height && (
                 <p className="text-sm text-gray-700 mb-1">Height: {footballer.height}</p>
               )}
-              {footballer.age && (
-                <p className="text-sm text-gray-700 mb-3">Age: {footballer.age}</p>
+              {footballer.preferredFoot && (
+                <p className="text-sm text-gray-700 mb-3">Preferred Foot: {footballer.preferredFoot}</p>
               )}
 
-              <button className="mt-2 px-4 py-2 bg-green-700 text-white rounded-full hover:bg-green-800 transition duration-300">
+              <Link to={`/footballer/${footballer.username.replace(/ /g, "-")}`}><button className="mt-2 px-4 py-2 bg-green-700 text-white rounded-full hover:bg-green-800 transition duration-300">
                 View Profile
-              </button>
+              </button></Link>
             </div>
           ))
         )}

@@ -65,14 +65,14 @@ const Navbar = () => {
         {/* DESKTOP NAV */}
         <div className="md:p-1"></div>
         <div className="pl-12 pr-12">
-          <header className="hidden rounded-full p-1.5 md:flex text-center justify-between bg-card pl-10 pr-10">
+          <header className="hidden rounded-full p-2.5 md:flex text-center justify-between bg-card px-10">
               <img src={logo} className='rounded-full size-15' alt="AmtaPro-Logo" />
               <ul className="flex pt-4">
                 {headerLinks.map((link) => (
                   <li key={link.name}>
                     <Link
                       to={link.to}
-                      className="m-2.5 p-1 hover:text-muted hover:overline hover:animation-ping"
+                      className="m-2.5 p-1 hover:text-muted hover:overline"
                     >
                       {link.name}
                     </Link>
@@ -96,7 +96,7 @@ const Navbar = () => {
             <div>
               <div className="p-1 md:hidden"></div>    
                 <div className="pl-5 pr-5 md:hidden">
-                <header className="flex justify-between bg-card text-center items-center p-2 rounded-full pl-5 pr-5">
+                <header className="flex justify-between bg-card text-center items-center p-2 rounded-full px-5">
                   <img src={logoM} className='rounded-full size-13' alt="AmtaPro-Logo" />
                   <h1 className="text-2xl font-sans font-semibold">AmtaPro</h1>
                   <button

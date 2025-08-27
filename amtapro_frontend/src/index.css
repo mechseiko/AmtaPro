@@ -41,7 +41,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 600px) {
   .cursor {
     display: none;
   }
