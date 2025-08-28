@@ -22,7 +22,7 @@ const DashboardHeader = ({footballer, academy, onMenuClick, headBlur}) => {
       <header className="p-4 flex justify-between items-center bg-white shadow-lg">
         <h1 className="font-medium text-lg md:text-2xl">
           {footballer ? `${getHours()},`
-            : <h1 className="font-semibold text-lg md:text-2xl">{academy}</h1>
+            : <span className="font-semibold text-lg md:text-2xl">{academy}</span>
           }
           <span className="font-semibold">
             {footballer ? ` ${footballer} 👋` 
