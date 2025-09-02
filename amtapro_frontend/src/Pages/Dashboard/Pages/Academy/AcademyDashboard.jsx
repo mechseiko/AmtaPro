@@ -29,9 +29,9 @@ const AcademyDashboard = () => {
 
   const params = useParams()
   const academy = useMemo(() => {
-      const formattedParamsName = params.academyName.replace(/-/g," ");
-      return academies.find(academy => academy.name === formattedParamsName);
-    }, [params.footballerName]);
+    const formattedParamsName = params.academyName.replace(/-/g," ");
+    return academies.find(academy => academy.name === formattedParamsName);
+  }, [params.footballerName]);
 
   if (!academy) {
     return <div>No such academy was found</div>;

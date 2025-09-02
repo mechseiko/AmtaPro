@@ -8,7 +8,7 @@ import User from "../Models/user.model.js";
 
 export const registerController = async (req, res, next) => {
   try {
-    const { name, emailAddress, password, role } = req.body;
+    const { username, name, emailAddress, password, role } = req.body;
     if (!emailAddress || !password) {
       return res.status(400).json({
         success: false,
@@ -31,6 +31,7 @@ export const registerController = async (req, res, next) => {
     const newUser = new User({
       name,
       emailAddress,
+      username,
       role,
       password: hashedPassword,
     });

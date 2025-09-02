@@ -30,10 +30,11 @@ const SignUp = () => {
         body: JSON.stringify(form),
       });
 
-      const data = await response.json();
+      const {success, message, data} = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || 'Signup failed');
+      if (!success) {
+        console.error(message);
+        throw new Error(message || 'Signup failed');
       }
 
       console.log('Signup successful:', data);

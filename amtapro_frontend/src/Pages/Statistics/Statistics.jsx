@@ -18,7 +18,7 @@ const Statistics = () => {
       viewport={{ once: true }}
       className="py-10 px-5 md:px-20 rounded-3xl shadow-lg"
     >
-      <Title title="🌍 Join a thriving community of"/>
+      <Title title="🌍 Join a community of"/>
 
       <div className="mt-10 text-white grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
         {stats.map((stat, index) => (
