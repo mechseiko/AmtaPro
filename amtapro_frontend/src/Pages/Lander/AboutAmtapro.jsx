@@ -18,7 +18,7 @@ const AboutAmtapro = ({}) => {
                     <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
                     <span className="text-4xl mb-3">🌍</span>
                     <h3 className="font-semibold text-lg mb-2 text-green-700">Global Exposure</h3>
-                    <p className="text-gray-600 text-center">Showcase your talent to clubs, scouts, and agents worldwide—no boundaries, just opportunities.</p>
+                    <p className="text-gray-600 text-center">Showcase your talent to clubs, scouts, and agents worldwide, no boundaries, just opportunities.</p>
                     </div>
                     <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
                     <span className="text-4xl mb-3">🤝</span>
