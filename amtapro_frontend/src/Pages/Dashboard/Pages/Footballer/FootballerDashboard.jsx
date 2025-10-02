@@ -2,11 +2,11 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import * as lucid from "lucide-react";
-import { boardFootballerLinks} from "../../assets/dashboardLinks"
 import DashboardHeader from "../../DashboardComponents/DashboardHeader";
 import DashboardFooter from "../../DashboardComponents/DashboardFooter"
-import DashboardAside from "../../DashboardComponents/DashboardAside";
 import Focus from "../../../../Components/Focus";
+import clsx from 'clsx'
+import Button from "../../DashboardComponents/Button";
 
 const footballers = [
   {id:1,fullName:"Tunde Okoro",username:"Tundsky",image:"https://xsgames.co/randomusers/assets/avatars/male/12.jpg",dob:"2007-03-15",nationality:"Nigeria",position:"Attacking Midfielder",preferredFoot:"Right",height:"1.75m",weight:"68kg",currentAcademy:"Future Stars Football Academy",playerBio:"Creative playmaker with elite vision and passing range.",careerStats:{appearances:45,goals:18,assists:22},highlightVideo:"https://youtube.com/watch?v=sampleTundeHighlights",achievements:["MVP - U17 National Cup 2022","Top Assists - Lagos Youth League"],agentContact:"agent@tundeokoro.com",socialMedia:{instagram:"https://instagram.com/tundeokoro10",twitter:"https://twitter.com/tundeokoro10"},languages:["English","Yoruba"],injuryHistory:["Minor ankle sprain - 2023"],playerRating:8.5,gender:"female", location: "Nigeria"},
@@ -16,9 +16,27 @@ const footballers = [
   {id:5,fullName:"David Ogunleye",username:"mikopee",image:"https://xsgames.co/randomusers/assets/avatars/male/56.jpg",dob:"2006-05-30",nationality:"Nigeria",position:"Box-to-Box Midfielder",preferredFoot:"Right",height:"1.78m",weight:"70kg",currentAcademy:"Rising Eagles FC Academy",playerBio:"High-energy midfielder with excellent tackling and passing range.",careerStats:{appearances:48,goals:10,assists:15},highlightVideo:"https://youtube.com/watch?v=davidogunleyeHighlights",achievements:["Player of the Season - Osun Youth League 2022"],agentContact:"agent@davidogunleye.com",socialMedia:{instagram:"https://instagram.com/davidogunleye8",twitter:"https://twitter.com/davidogunleye8"},languages:["English","Yoruba"],injuryHistory:["Knee bruise - 2023"],playerRating:8.4,gender:"female", location:"South Africa"}
 ];
 
+const sections = ["Menu", "Connections", "Highlights", "Settings"];
+
+const boardFootballerLinks = [
+  //menu
+  [{ name: "Dashboard", to: "/dashboard", lucid: lucid.Home },],
+  //connections
+  [{ name: "Acdemies", to: "/academies", lucid: lucid.House },
+  { name: "Footballers", to: "/footballers", lucid: lucid.Users },
+  { name: "Amtapro", to: "/contact", lucid: lucid.Contact },],
+  //highlights
+  [{name: "Images", lucid: lucid.Image}],
+  [{name: "Videos", lucid: lucid.Video}],
+  //settings
+  [{ name: "Profile", to: "/profile", lucid: lucid.PersonStanding },
+  { name: "Logout", to: "/", lucid: lucid.LogOut }]
+];
+
 const FootballerDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const params = useParams();
+  const date = new Date()
 
   useEffect(() => {
     if (sidebarOpen) {
@@ -43,7 +61,58 @@ const FootballerDashboard = () => {
       <Focus />
 
       <div className="flex flex-1 flex-col md:flex-row">
-        <DashboardAside isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} asideLinks={boardFootballerLinks} />
+            <div
+                className={clsx(
+                'fixed inset-0 bg-opacity-50 z-30 transition-opacity duration-400',
+                {
+                    'opacity-100 pointer-events-auto': sidebarOpen,
+                    'opacity-0 pointer-events-none': !sidebarOpen,
+                }
+                )}
+                onClick={() => setSidebarOpen(false)}
+            ></div>
+            <aside
+                    className={clsx(
+                    'fixed overflow-auto top-0 left-0 h-full w-[75%] sm:w-72 bg-white p-7 md:p-5 shadow-md z-9997 transform transition-transform duration-300',
+                    {
+                        '-translate-x-full': !sidebarOpen,
+                        'translate-x-0': sidebarOpen,
+                    }
+                    )}
+                >                
+                <div className='flex flex-row-reverse justify-between items-center mb-5'>
+                    <lucid.X size={30} onClick={() => setSidebarOpen(false)}/>
+                    <img src={logo} alt="Amtapro-logo" className='rounded-full size-25'/>
+                </div>
+
+                <nav className="space-y-5">
+                    {boardFootballerLinks.map((sectionLinks, index) => (
+                        <div key={sections[index]}>
+                            <h1 className="font-bold text-green-800 md:mb-3 mb-5">{sections[index].toUpperCase()}</h1>
+                            <ul className="space-y-7 md:space-y-3">
+                                {sectionLinks.map((link, index) => (
+                                <li key={index}>
+                                    <Link
+                                    to={link.to}
+                                    className="flex items-center gap-3 hover:text-green-700 transition"
+                                    >
+                                    {link.lucid && <link.lucid size={20} />}
+                                    {link.name.toUpperCase()}
+                                    </Link>
+                                </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                    <hr className='m-3'/>
+                    {
+                        date.getFullYear() === 2025 ?
+                        <h3>© AmtaPro 2025</h3>
+                        :
+                        <h3>© AmtaPro 2025–{date.getFullYear()}</h3>
+                    }
+                </nav>
+            </aside>
 
         <main className={`flex-1 p-4 md:p-8 overflow-y-auto ${sidebarOpen ? "blur-sm" : "blur-none"}`}>
           <div className="mx-auto bg-white p-6 rounded-lg shadow-lg">

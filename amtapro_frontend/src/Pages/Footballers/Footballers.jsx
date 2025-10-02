@@ -34,7 +34,7 @@ const Footballers = () => {
   return (
     <div>
     <Title title={`Start Searching Through ${footballers.length}0+ Footballers`}/>
-    <div className="text-green-800 p-3">
+    <div className="text-green-800 mx-auto px-5 py-10">
 
       <div className="flex justify-end mb-4">
         <button

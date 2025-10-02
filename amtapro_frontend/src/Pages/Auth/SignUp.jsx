@@ -9,7 +9,6 @@ import * as lucid from 'lucide-react';
 
 const SignUp = () => {
   const [form, setForm] = useState({ name: '', username: '', emailAddress: '', password: '', role: '' });
-  console.log(form)
   const [showPassword, setShowPassword] = useState(false);
   const [showRole, setShowRole] = useState(true);
 

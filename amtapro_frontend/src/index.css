@@ -4,6 +4,9 @@
 
 #root{
   background-color: #e8f5e9;
+  button{
+    outline: none;
+  }
 }
 .cursor {
   width: 25px;
@@ -62,6 +65,7 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-card: var(--card);
 }
+
 @layer base {
   :root {
     --background: #e8f5e9;
