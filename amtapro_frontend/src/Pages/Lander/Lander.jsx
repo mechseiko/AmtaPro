@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, { useRef, useEffect } from 'react';
 import Hero from './Hero';
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
@@ -14,14 +14,14 @@ import AmtaPro from './AmtaPro'
 const Lander = () => {
     const audioRef = useRef(null);
 
-    window.addEventListener("DOMContentLoaded",
-        useEffect(() => {
-            const audio = audioRef.current;
-            if (audio) {
-                audio.volume = 0;
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (audio) {
+            audio.volume = 0;
+            // Autoplay policies might still block this without user interaction
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise
                     .then(() => {
                         let vol = 0;
                         const fade = setInterval(() => {
@@ -34,10 +34,9 @@ const Lander = () => {
                         }, 200);
                     })
                     .catch((err) => console.log("Autoplay blocked:", err));
-                }
             }
-        }, [])
-    )
+        }
+    }, []);
 
     return (
         <div>

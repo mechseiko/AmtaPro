@@ -1,50 +1,52 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login, logo } from '../../assets/links';
 import { Eye, EyeOff } from 'lucide-react';
 import * as lucid from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 const SignUp = () => {
   const [form, setForm] = useState({ name: '', username: '', emailAddress: '', password: '', role: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [showRole, setShowRole] = useState(true);
+  const [error, setError] = useState('');
+
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setError('');
   };
-
-  const BASE_URL = "https://amtapro.onrender.com";
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`${BASE_URL}/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      });
 
-      const {success, message, data} = await response.json();
+    // Basic validation
+    if (!form.role) {
+      setError("Please select a role");
+      return;
+    }
 
-      if (!success) {
-        console.error(message);
-        throw new Error(message || 'Signup failed');
-      }
+    const result = await register(form);
 
-      console.log('Signup successful:', data);
-    } catch (error) {
-      console.error('Signup failed:', error.message);
+    if (result.success) {
+      console.log("Signup successful");
+      // Redirect to Login to be safe, or direct home if auto-logged in.
+      // Backend code returns "newUser" and sets cookie.
+      // AuthContext sets user.
+      // We can redirect to home.
+      navigate('/');
+    } else {
+      setError(result.message);
     }
   };
 
 
-  const handleRole = (e) => {
-    setForm({ ...form, role: (e.target.innerText === "Football Academy") ? "scout" : "athlete" });
+  const handleRole = (roleType) => {
+    setForm({ ...form, role: roleType });
     setShowRole(false);
   };
 
@@ -56,83 +58,90 @@ const SignUp = () => {
 
           <h1 className="text-4xl font-bold text-center mb-6 text-green-800">Sign Up</h1>
 
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-center">
+              {error}
+            </div>
+          )}
+
           <form className="space-y-4" onSubmit={handleSignup}>
             {showRole && <hr />}
-            { showRole && 
+            {showRole &&
               <div className='*:mb-8'>
-                  <h1 className="text-2xl font-bold text-center text-muted">Who are you?</h1>
-                  <div
-                    onClick={handleRole}
-                    value={form.role}
-                    onChange={handleChange}
-                    className="bg-primary text-white text-center items-center p-5 flex-col flex justify-center rounded text-[20px] hover:bg-foreground transition"
-                  >
-                    <lucid.PersonStandingIcon size={30}/>
-                    <span>Football player</span>
-                  </div>
+                <h1 className="text-2xl font-bold text-center text-muted">Who are you?</h1>
+                <div
+                  onClick={() => handleRole("athlete")}
+                  className="cursor-pointer bg-green-600 text-white text-center items-center p-5 flex-col flex justify-center rounded text-[20px] hover:bg-green-700 transition"
+                >
+                  <lucid.PersonStandingIcon size={30} />
+                  <span>Football player</span>
+                </div>
 
-                  <div
-                    onClick={handleRole}
-                    value={form.role}
-                    onChange={handleChange}
-                    className="bg-primary text-white text-center items-center p-5 flex-col flex justify-center rounded text-[20px] hover:bg-foreground transition"
-                  >
-                    <lucid.House size={30}/>
-                    <span>Football Academy</span>
-                  </div>
+                <div
+                  onClick={() => handleRole("scout")}
+                  className="cursor-pointer bg-green-600 text-white text-center items-center p-5 flex-col flex justify-center rounded text-[20px] hover:bg-green-700 transition"
+                >
+                  <lucid.House size={30} />
+                  <span>Football Academy</span>
+                </div>
               </div>
             }
-            { !showRole && 
-            <>
-              <input
-                type="text"
-                name="name"
-                autoFocus
-                placeholder="Name"
-                value={form.name}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={form.username}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
-              <input
-                type="email"
-                name="emailAddress"
-                placeholder="Email"
-                value={form.emailAddress}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
-              <div className="relative">
+            {!showRole &&
+              <>
+                <div className="text-center font-bold text-green-700 mb-2">
+                  Signing up as: {form.role === 'athlete' ? 'Football Player' : 'Football Academy'}
+                  <button type="button" onClick={() => setShowRole(true)} className="ml-2 text-xs text-blue-500 underline">Change</button>
+                </div>
+
                 <input
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  placeholder="Password"
-                  value={form.password}
+                  type="text"
+                  name="name"
+                  autoFocus
+                  placeholder="Name"
+                  value={form.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 pr-10"
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
-                <span
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 cursor-pointer text-green-700"
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  value={form.username}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <input
+                  type="email"
+                  name="emailAddress"
+                  placeholder="Email"
+                  value={form.emailAddress}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    placeholder="Password"
+                    value={form.password}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 pr-10"
+                  />
+                  <span
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-2.5 cursor-pointer text-green-700"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </span>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-green-700 text-white rounded-full hover:bg-green-800 transition duration-300"
                 >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </span>
-              </div>
-              <button
-                type="submit"
-                className="w-full py-3 bg-green-700 text-white rounded-full hover:bg-green-800 transition duration-300"
-              >
-                Create Account
-              </button>
-            </>
-            } 
+                  Create Account
+                </button>
+              </>
+            }
           </form>
 
           <div className="mt-6 text-sm text-center text-gray-600">

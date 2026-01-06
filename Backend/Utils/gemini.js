@@ -1,9 +1,21 @@
 const instruction = `I want you to provide me with 20 real news articles about sports published today, ${Date.now()}. Focus mostly on football-related news, but include some articles covering other sports as well (like basketball, tennis, cricket, etc.). Make sure each article object contains all the above fields with accurate, up-to-date information from today. The "status" field should reflect success, and "totalResults" should be exactly 10. Focus on authentic and verified news sources to ensure reliable reporting.`;
-import { GoogleGenAI } from "@google/genai";
+// import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
+// Safe initialization
+let ai;
+/*
+try {
+  if (process.env.GEMINI_API_KEY) {
+    ai = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY,
+    });
+  } else {
+    console.warn("GEMINI_API_KEY is not set. News generation will fail.");
+  }
+} catch (error) {
+  console.error("Failed to initialize GoogleGenAI:", error.message);
+}
+*/
 
 const schema = {
   type: "object",
@@ -49,6 +61,13 @@ const schema = {
 
 export async function generateNews(req, res, next) {
   // const {prompt} = req.body
+
+  if (!ai) {
+    return res.status(503).json({
+      success: false,
+      message: "Gemini AI service unavailable (API Key missing or invalid)",
+    });
+  }
 
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",

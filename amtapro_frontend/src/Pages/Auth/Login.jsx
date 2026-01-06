@@ -1,59 +1,48 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { forgotPassword, register } from '../../assets/links';
 import { Eye, EyeOff } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ emailAddress: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setError(''); // Clear error on change
   };
-
-  const BASE_URL = "https://amtapro.onrender.com";
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`${BASE_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      });
+    setError('');
 
-      const data = await response.json();
+    // Call login from AuthContext
+    const result = await login(form);
 
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
-      console.log('Login successful:', data);
-      // if (data.role === 'athlete') {
-      //   navigate('/dashboard/footballer');
-      // } else if (data.role === 'scout') {
-      //   navigate('/dashboard/academy');
-      // }
-    } catch (error) {
-      console.error('Login failed:', error.message);
+    if (result.success) {
+      console.log('Login successful');
+      // Redirect based on role not strictly available yet, defaulting to a generic dashboard or trying to guess
+      // Ideally we check result.user.role if we returned it, or pull from user state
+      // For now, let's just go to a landing dashboard or home.
+      // The user requested fixing dashboard links, so let's try to be smart.
+      // But we don't have the user object in scope here easily without awaiting the state update or returning it.
+      // Let's assume we go to home for now or a generic dashboard route if it existed.
+      // The router has /footballer/:footballerName and /academy/:academyName
+      // We'll need the username.
+      // Let's reload the page or navigate to home? 
+      // Better: navigate to home, and let the Navbar/Header show "Dashboard" link if logged in.
+      navigate('/');
+    } else {
+      setError(result.message);
     }
-};
+  };
 
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await axios.post(`${BASE_URL}/auth/login`, form);
-  //     console.log('Login successful:', response.data);
-  //   } catch (error) {
-  //     console.error('Login failed:', error.response?.data || error.message);
-  //   }
-  // };
-  
   return (
     <div className="flex flex-col min-h-screen bg-green-50 text-green-900">
       <Header />
@@ -61,13 +50,19 @@ const Login = () => {
         <div className="bg-white shadow-md rounded-xl p-8 max-w-md mx-auto border border-green-700">
           <h1 className="text-4xl font-bold text-center mb-6 text-green-800">Log In</h1>
 
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-center">
+              {error}
+            </div>
+          )}
+
           <form className="space-y-4" onSubmit={handleLogin}>
             <input
               type="email"
-              name="email"
+              name="emailAddress"
               placeholder="Email"
               autoFocus
-              value={form.email}
+              value={form.emailAddress}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
             />
